@@ -2,23 +2,6 @@
 name: md2word
 description: "CLI tool for converting Markdown to Word documents. Use when: user wants to convert a Markdown file to a .docx Word document."
 homepage: https://github.com/kakkoii1337/gai-cli-msword
-metadata:
-  {
-    "openclaw":
-      {
-        "emoji": "📝",
-        "requires": { "node": ">=18.0.0" },
-        "install":
-          [
-            {
-              "id": "npm",
-              "kind": "npm",
-              "package": "gai-cli-msword",
-              "label": "Install via npm",
-            },
-          ],
-      },
-  }
 ---
 
 # md2word
