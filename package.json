@@ -1,6 +1,6 @@
 {
     "name": "gai-cli-msword",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "CLI tool for converting Markdown to Word documents",
     "type": "module",
     "main": "src/index.js",
