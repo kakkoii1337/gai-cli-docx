@@ -11,13 +11,13 @@ CLI tool for converting Markdown files to Word documents (.docx).
 ## Installation
 
 ```bash
-npm install -g gai-cli-msword
+npm install -g gai-cli-docx
 ```
 
 Or run directly:
 
 ```bash
-npx gai-cli-msword "document.md" "output.docx"
+npx gai-cli-docx "document.md" "output.docx"
 ```
 
 ## Usage
