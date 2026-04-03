@@ -16,6 +16,7 @@ import {
     HeadingLevel,
     CheckBox,
     ImageRun,
+    BorderStyle,
 } from "docx";
 
 function parseArgs() {
@@ -204,7 +205,7 @@ function createDocxElements(parsedElements, sourcePath) {
                 const headingLevel = Math.min(element.level, 6);
                 docxElements.push(
                     new Paragraph({
-                        children: [new TextRun({ text: element.content, bold: true })],
+                        children: [new TextRun(element.content)],
                         heading:
                             headingLevel === 1 ? HeadingLevel.HEADING_1
                             : headingLevel === 2 ? HeadingLevel.HEADING_2
@@ -271,23 +272,38 @@ function createDocxElements(parsedElements, sourcePath) {
 
             case "codeBlock": {
                 const codeLines = element.content.split("\n");
-                for (const codeLine of codeLines) {
-                    docxElements.push(
-                        new Paragraph({
-                            children: [
-                                new TextRun({
-                                    text: codeLine || " ",
-                                    font: "Consolas",
-                                    size: 20,
-                                }),
-                            ],
-                            indent: { left: 0 },
-                            spacing: { after: 0 },
-                            shading: { fill: "F5F5F5" },
-                        })
-                    );
+                const children = [];
+
+                if (element.language) {
+                    children.push(new TextRun({
+                        text: element.language,
+                        font: "Consolas",
+                        size: 16,
+                        color: "808080",
+                        italics: true,
+                    }));
+                    children.push(new TextRun({ break: 1 }));
                 }
-                docxElements.push(new Paragraph({ text: "", spacing: { after: 120 } }));
+
+                codeLines.forEach((codeLine, idx) => {
+                    if (idx > 0) children.push(new TextRun({ break: 1 }));
+                    children.push(new TextRun({
+                        text: codeLine || " ",
+                        font: "Consolas",
+                        size: 18,
+                    }));
+                });
+
+                const borderOpts = { style: BorderStyle.SINGLE, size: 4, space: 4, color: "999999" };
+                docxElements.push(
+                    new Paragraph({
+                        children,
+                        border: { top: borderOpts, bottom: borderOpts, left: borderOpts, right: borderOpts },
+                        shading: { fill: "F5F5F5" },
+                        indent: { left: 288 },
+                        spacing: { after: 120 },
+                    })
+                );
                 break;
             }
 
